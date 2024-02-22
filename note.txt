@@ -1,0 +1,33 @@
+<div id="ListingURE_detailView_listColumn_0_0_1" style="overflow: hidden; padding: 2px 0px 2px 4px;">BA11-ADHERENTS MUTUELLE</div>
+
+<div id="ListingURE_detailView_listColumn_1_0_1" style="overflow: hidden; padding: 2px 0px 2px 4px;">BA12-LISTE SALARIE (adresse et enfant)</div>
+
+
+
+
+### Contexte
+
+L'utilisateur travaille sur une extension Chrome qui interagit avec le contenu d'une page web, y compris les éléments à l'intérieur d'un `iframe`. L'objectif est de détecter et d'afficher l'ID des éléments HTML survolés par l'utilisateur, avec une attention particulière aux éléments à l'intérieur d'un `iframe`.
+
+### Progrès Jusqu'à Présent
+
+1. **Accès à l'`iframe` :**
+   - L'utilisateur a confirmé que l'origine de l'`iframe` est la même que celle de la page principale, permettant ainsi un accès direct au contenu de l'`iframe` sans violer la politique de la même origine.
+
+2. **Surveillance des Éléments :**
+   - Un écouteur d'événements `mouseover` a été mis en place pour détecter les survols d'éléments et afficher l'ID de ces éléments dans la console. Cette logique a été appliquée à la fois à la page principale et au contenu de l'`iframe`.
+
+3. **Chargement Dynamique :**
+   - Il a été observé que le contenu de l'`iframe` pourrait se charger ou changer dynamiquement après le chargement initial de la page. Cela a soulevé des questions sur la manière de détecter et de gérer les éléments ajoutés ou modifiés après le chargement initial.
+
+4. **Solutions Proposées :**
+   - Utilisation de `MutationObserver` pour surveiller les changements dans le DOM de l'`iframe` et réagir à ces changements en temps réel.
+   - L'approche adoptée vise à observer les mutations dans le contenu de l'`iframe` afin de détecter les nouveaux éléments ou les modifications et d'appliquer la logique de surveillance des survols à ces éléments.
+
+### Objectifs Restants
+
+- **Optimiser la Surveillance :** Trouver un équilibre entre performance et fonctionnalité complète pour surveiller efficacement les changements dans le DOM de l'`iframe`, surtout en présence de contenu dynamique.
+- **Gérer les Performances :** Assurer que l'utilisation de `MutationObserver` et d'autres mécanismes de surveillance ne dégrade pas les performances de la page ou de l'extension.
+- **Sécurité et Fiabilité :** Veiller à ce que la méthode de surveillance respecte les bonnes pratiques en matière de sécurité et de fiabilité, en évitant les faux positifs ou négatifs dans la détection des éléments.
+
+---

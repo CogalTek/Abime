@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Abime - Documentation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body>
+    <div class="d-flex flex-column p-1 justify-content-center align-items-center">
+        <h1 class="m-3" style="font-family: 'Courier New', Courier, monospace;">Configuration</h1>
+        <div class="input-group mb-3" style="width: 80%;">
+            <span class="input-group-text" id="basic-addon1">#</span>
+            <input id="adresseSource" type="text" class="form-control" placeholder="Adresse de la source" aria-label="adresse source" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group mx-3 mt-1" style="width: 80%;">
+            <span class="input-group-text" id="basic-addon1">***</span>
+            <input id="passwordSource" type="password" class="form-control" placeholder="Mots de passe de la source" aria-label="password source" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            <label class="form-check-label" for="flexCheckDefault">
+                Afficher la documentation.
+            </label>
+          </div>
+          <div class="form-check mt-2">
+            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+            <label class="form-check-label" for="flexCheckChecked">
+                Infobulle suit la souris.
+            </label>
+          </div>
+          <div class="d-flex mt-3">
+                <button id="enregistrerBtn" class="btn btn-primary">Enregistrer</button>
+          </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('enregistrerBtn').addEventListener('click', function() {
+            // Récupérer les valeurs des champs
+            var adresseSource = document.getElementById('adresseSource').value;
+            var passwordSource = document.getElementById('passwordSource').value;
+
+            // Enregistrer les valeurs dans les cookies
+            document.cookie = "adresseSource=" + adresseSource;
+            document.cookie = "passwordSource=" + passwordSource;
+        });
+    </script>
+</body>
+</html>
