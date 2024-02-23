@@ -1,7 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  devServer: {
-      port: 80,
-  },
+  css: [
+    '~/assets/css/main.css'
+  ],
+  plugins: [
+    { src: '~/plugins/bootstrap.js', mode: 'client' }
+  ]
 })
