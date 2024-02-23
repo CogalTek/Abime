@@ -13,7 +13,7 @@ services:
       - DB_NAME=mydatabase
 
   db:
-    image: mysql:5.7
+    image: mariadb:10.5
     volumes:
       - db-data:/var/lib/mysql
     environment:
