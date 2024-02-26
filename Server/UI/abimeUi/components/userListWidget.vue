@@ -6,7 +6,7 @@
             Gestionnaire d'accès
         </div>
         <div class="card-body" style="overflow-y: scroll">
-            <userFicheComponent v-for="user in tableTest" :name="user.name" :admin="user.admin"/>
+            <userFicheComponent v-for="user in record" :name="user.username" :admin="user.admin"/>
         </div>
         <div class="card-footer">
             <button class="btn btn-outline-primary w-100">Crée une nouvelle clée</button>
@@ -19,55 +19,22 @@
 
 <script setup>
     import userFicheComponent from './userFicheComponent.vue';
+    import { useNuxtApp } from '#app';
 
-    const tableTest = ref([
-        {
-            name: "RRH Compte",
-            admin: false
-        },
-        {
-            name: "RRH Sup",
-            admin: true
-        },
-        {
-            name: "RH Compte",
-            admin: false
-        },
-        {
-            name: "autre",
-            admin: false
-        },
-        {
-            name: "RRH Compte",
-            admin: false
-        },
-        {
-            name: "RRH Sup",
-            admin: true
-        },
-        {
-            name: "RH Compte",
-            admin: false
-        },
-        {
-            name: "autre",
-            admin: false
-        },
-        {
-            name: "RRH Compte",
-            admin: false
-        },
-        {
-            name: "RRH Sup",
-            admin: true
-        },
-        {
-            name: "RH Compte",
-            admin: false
-        },
-        {
-            name: "autre",
-            admin: false
+    const nuxtApp = useNuxtApp();
+    const pb = ref({});
+    const record = ref({});
+
+    // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync
+    onMounted(async () => {
+        try {
+            pb.value = nuxtApp.$pb;
+            if (!pb.value.authStore.isValid)
+                router.push('/');
+            record.value = await pb.value.collection('users').getFullList();
+        } catch (error) {
+            console.error("Erreur durant le chargement des données.", error);
+        } finally {
         }
-    ])
+    });
 </script>

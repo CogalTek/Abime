@@ -6,7 +6,7 @@
             Gestionnaire de resource
         </div>
         <div class="card-body">
-            <userFicheComponent v-for="user in tableTest" :name="user.name" :admin="user.admin"/>
+            <userFicheComponent v-for="user in record" :name="user.etat_name"/>
         </div>
         <div class="card-footer">
             <button class="btn btn-outline-primary">Ajouter une nouvelle documentation</button>
@@ -22,19 +22,22 @@
 
 <script setup>
     import userFicheComponent from './userFicheComponent.vue';
+    import { useNuxtApp } from '#app';
 
-    const tableTest = ref([
-        {
-            name: "BA11"
-        },
-        {
-            name: "BA12"
-        },
-        {
-            name: "BA13"
-        },
-        {
-            name: "BA19"
+    const nuxtApp = useNuxtApp();
+    const pb = ref({});
+    const record = ref({});
+
+    // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync
+    onMounted(async () => {
+        try {
+            pb.value = nuxtApp.$pb;
+            if (!pb.value.authStore.isValid)
+                router.push('/');
+            record.value = await pb.value.collection('Documentation').getFullList();
+        } catch (error) {
+            console.error("Erreur durant le chargement des données.", error);
+        } finally {
         }
-    ])
+    });
 </script>

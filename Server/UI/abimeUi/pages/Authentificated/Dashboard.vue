@@ -19,4 +19,38 @@
 <script setup>
     import userListWidget from '~/components/userListWidget.vue';
     import etatListWidget from '~/components/etatListWidget.vue';
+    import { useNuxtApp } from '#app';
+    import { useRouter } from 'vue-router';
+
+    const nuxtApp = useNuxtApp();
+    const router = useRouter();
+    const pb = ref({});
+
+    // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync
+    onMounted(async () => {
+        try {
+            pb.value = nuxtApp.$pb;
+            if (!pb.value.authStore.isValid)
+                router.push('/');
+        } catch (error) {
+            console.error("Erreur durant le chargement des données.", error);
+        } finally {
+        }
+    });
+
+    const logout = () => { // deconnect et renvoie vers la page de connexion
+        pb.value.authStore.clear();
+        router.push('/');
+    }
+
+    // Définir un watcher pour observer les changements sur pb.value.authStore
+    watch(() => pb.value.authStore, (newVal, oldVal) => {
+        console.log("Le store auth a changé", newVal);
+        // rediriger l'utilisateur si authStore.isValid devient false
+        if (!newVal.isValid) {
+            router.push('/');
+        }
+    }, {
+        deep: true // verification en profondeur
+    });
 </script>

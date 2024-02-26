@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     '~/assets/css/main.css'
   ],
   plugins: [
+    '~/plugins/pocketbase.js',
     { src: '~/plugins/bootstrap.js', mode: 'client' }
   ]
 })
