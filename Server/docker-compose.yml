@@ -1,24 +1,28 @@
-version: '3'
+version: '3.7'
 services:
-  api:
-    build: .
+  nuxt_app:
+    build: ./abimeUI
     ports:
-      - "3000:3000"
-    depends_on:
-      - db
-    environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASSWORD=example
-      - DB_NAME=mydatabase
+      - "80:3000"
 
-  db:
-    image: mariadb:10.5
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: unless-stopped
+    command:
+      - --encryptionEnv #optional
+      - ENCRYPTION #optional
+    environment:
+      ENCRYPTION: example #optional
+    ports:
+      - "8090:8090"
     volumes:
-      - db-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: mydatabase
-
+      - pocketbase-volume:/pb_data
+    healthcheck: #optional (recommended) since v0.10.0
+      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
 volumes:
-  db-data:
+  pocketbase-volume:
+    name: pocketbase-volume
