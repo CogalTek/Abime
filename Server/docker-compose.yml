@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   nuxt_app:
-    build: ./abimeUI
+    build: ./abimeUi
     ports:
       - "80:3000"
 
