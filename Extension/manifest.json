@@ -4,7 +4,8 @@
     "description": "Ouvre un popup sur une page locale spécifique",
     "version": "1.0",
     "permissions": [
-      "activeTab"
+      "activeTab",
+      "storage"
     ],
     "action": {
       "default_popup": "popup.html",
@@ -24,7 +25,7 @@
     "background": {
       "service_worker": "background.js"
     },
-    "web_accessible_resources": [{ 
+    "web_accessible_resources": [{
       "resources": ["images/*.png"],
       "matches": ["<all_urls>"]
     }]

@@ -7,5 +7,12 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/pocketbase.js',
     { src: '~/plugins/bootstrap.js', mode: 'client' }
-  ]
+  ],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'fr',
+      },
+    }
+  }
 })

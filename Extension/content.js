@@ -1,3 +1,8 @@
+let ar = [
+    // Structure initiale du tableau
+];
+
+
 function createPopup(content) {
 
     // Supprimer l'ancien popup s'il existe
@@ -90,30 +95,13 @@ function popupInfo() {
         chrome.runtime.sendMessage({action: "openWindow"}, function(response) {
             console.log("response", response)
         });
-    };    
+    };
 
     // Ajouter le popup au document
     document.body.appendChild(popup);
 }
 
 function handleMouseOver(event) {
-
-    const ar = [
-        {
-            name: "BA11-ADHERENTS MUTUELLE",
-            desc: "requetes des mutuelle"
-        },
-        {
-            name: "BA12-LISTE SALARIE (adresse et enfant)",
-            desc: "liste des salarie avec leurs enfant et adresse"
-        },
-        {
-            name: "BA13-MEDAILLES",
-            desc: "liste des medailles"
-        },
-    ]
-
-
     if (event.target.id.includes('ListingURE_detailView_listColumn')) {
         for (let i of ar) {
             if (event.target.innerText === i.name) {
@@ -122,6 +110,11 @@ function handleMouseOver(event) {
                 break;
             }
         }
+
+
+        chrome.runtime.sendMessage({action: "downloadDoc", etat_name: event.target.innerText}, function(response) {
+            createPopupMouse(response, event);
+        });
     }
 }
 
@@ -146,7 +139,7 @@ function checkIframOrigin(iframename) {
         _iframe.addEventListener('load', function() {
             var iframeDocument = _iframe.contentDocument || _iframe.contentWindow.document;
             console.log(iframeDocument);
-            iframeDocument.addEventListener('mouseover', handleMouseEnter)  
+            iframeDocument.addEventListener('mouseover', handleMouseEnter)
         });
     } catch (e) {
         console.log("pas d'acces", e)
@@ -154,7 +147,7 @@ function checkIframOrigin(iframename) {
     }
 }
 
-if (window.location.href === 'https://pleiades-bo.fr.lactadom.ad/BOE/BI') {
+if (window.location.href === 'https://pleiades-bo.fr.lactadom.ad/BOE/BI' || window.location.href.includes('http://localhost:3000/')) {
     console.log("test start");
     checkIframOrigin("servletBridgeIframe")
 }
