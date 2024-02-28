@@ -10,7 +10,7 @@
             <userFicheComponent v-for="user in record" :name="user.username" :admin="user.admin" :edit="admin"/>
         </div>
         <div class="card-footer">
-            <button @click="editCreating" class="btn btn-outline-primary w-100">Crée une nouvelle clée</button>
+            <button :disabled="!admin" @click="editCreating" class="btn btn-outline-primary w-100">Crée une nouvelle clée</button>
         </div>
     </div>
 </template>
