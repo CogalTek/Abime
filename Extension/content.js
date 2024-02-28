@@ -52,7 +52,7 @@ function createPopupMouse(content, event) {
     popup.style.background = 'white';
     popup.style.border = '1px solid #ddd';
     popup.style.zIndex = '10000'; // Assurez-vous qu'il est bien visible
-    popup.innerText = content;
+    popup.innerHTML = content;
     popup.style.opacity = "90%";
 
     // Ajouter le popup au document
