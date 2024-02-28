@@ -1,8 +1,14 @@
 <template>
+    <viewWidget
+        v-if="viewWidgetBool"
+        @close="editviewWidgetBool"
+        :title="props.name"
+        :description="props.description"
+    />
     <div class="etatFicheComponent cursor d-flex align-items-center justify-content-center rounded mb-1" style="height: 2em;">
         <p class="w-100 mt-3 mx-2">{{ props.name }}</p>
         <div class="w-100 d-flex flex-row-reverse" style="overflow-y: hidden">
-            <img style="height: 50%;" class="mx-1" src="/eye.svg" alt="voir les informations">
+            <img style="height: 50%;" @click="editviewWidgetBool" class="mx-1" src="/eye.svg" alt="voir les informations">
             <img @click="deleteItem" v-if="props.edit" style="height: 50%;" class="mx-1" src="/trash.svg" alt="supprimer">
         </div>
     </div>
@@ -34,15 +40,21 @@
 
     const nuxtApp = useNuxtApp();
     const pb = ref({});
+    const viewWidgetBool = ref(false);
 
     const props = defineProps({
         id: String,
         name: String,
+        description: String,
         admin: Boolean,
         edit: Boolean
     });
 
     const emit = defineEmits(["refresh"]);
+
+    const editviewWidgetBool = () => {
+        viewWidgetBool.value = !viewWidgetBool.value;
+    }
 
     const deleteItem = async () => { // destruction d'une documentation si la personne est admin
         try {

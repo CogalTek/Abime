@@ -12,6 +12,7 @@
                 :id="etat.id"
                 :name="etat.etat_name"
                 :edit="admin"
+                :description="etat.description"
                 @refresh="refresh"
             />
         </div>
