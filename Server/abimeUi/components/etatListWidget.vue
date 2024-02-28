@@ -1,13 +1,19 @@
 <!-- Affichage de tout les utilisateur enregistrer -->
 
 <template>
-    <createDocWidget v-if="creating" @close="editCreating" />
+    <createDocWidget v-if="creating" @close="editCreating" @refresh="refresh"/>
     <div class="card etatListWidget shadow rounded m-3" style="width: 69%; height: 33rem;">
         <div class="card-header">
             Gestionnaire de resource
         </div>
         <div class="card-body">
-            <etatFicheComponent v-for="user in record" :name="user.etat_name" :edit="admin"/>
+            <etatFicheComponent
+                v-for="etat in record"
+                :id="etat.id"
+                :name="etat.etat_name"
+                :edit="admin"
+                @refresh="refresh"
+            />
         </div>
         <div class="card-footer">
             <button @click="editCreating" :disabled="!admin" class="btn btn-outline-primary">Ajouter une nouvelle documentation</button>
@@ -35,6 +41,10 @@
     const editCreating = () => {
         creating.value = !creating.value;
         console.log("new value " + creating.value)
+    }
+
+    const refresh = async () => {
+        record.value = await pb.value.collection('Documentation').getFullList();
     }
 
     // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync

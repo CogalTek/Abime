@@ -47,7 +47,7 @@
     const nuxtApp = useNuxtApp();
     const pb = ref({});
     const record = ref({});
-    const emit = defineEmits(["close"]);
+    const emit = defineEmits(["close", "refresh"]);
     const name = ref("");
     const admin = ref(false);
     const isAdmin = ref(false);
@@ -71,6 +71,7 @@
                 admin: isAdmin.value
             });
             message.value = "Accès créée et ajoutée.";
+            emit('refresh');
             close(); // Ferme le widget après la création réussie
         } catch (e) {
             console.error(e);

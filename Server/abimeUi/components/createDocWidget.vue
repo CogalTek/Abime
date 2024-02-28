@@ -42,7 +42,7 @@
     const nuxtApp = useNuxtApp();
     const pb = ref({});
     const record = ref({});
-    const emit = defineEmits(["close"]);
+    const emit = defineEmits(["close", "refresh"]);
     const etat_name = ref("");
     const etat_descrition = ref("");
     const message = ref("");
@@ -59,6 +59,7 @@
         try {
             await pb.value.collection("Documentation").create({ etat_name: etat_name.value, description: etat_descrition.value }); // Assurez-vous que cette opération est asynchrone
             message.value = "Documentation créée et ajoutée.";
+            emit('refresh');
             close(); // Ferme le widget après la création réussie
         } catch (e) {
             console.error(e);
