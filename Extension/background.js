@@ -11,36 +11,44 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
     }
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // téléchargement de la doc
     if (request.action === "downloadDoc" && request.etat_name != "") {
-
-        chrome.storage.sync.get("token", function(resultat) {
+        console.log("Lancement du téléchargement de " + request.etat_name);
+        
+        chrome.storage.sync.get("token", function(result) {
             if (chrome.runtime.lastError) {
                 // Gérer l'erreur
-                console.log("Erreur lors de la récupération des données :", chrome.runtime.lastError);
-                return true;
+                console.error("Erreur lors de la récupération des données :", chrome.runtime.lastError);
+                sendResponse({ error: chrome.runtime.lastError.message }); // Renvoyer l'erreur
             }
         });
 
-        chrome.storage.sync.get("server", function(resultat) {
+        chrome.storage.sync.get("server", function(result) {
             if (chrome.runtime.lastError) {
                 // Gérer l'erreur
-                console.log("Erreur lors de la récupération des données :", chrome.runtime.lastError);
+                console.error("Erreur lors de la récupération des données (storage server):", chrome.runtime.lastError);
+                sendResponse({ error: chrome.runtime.lastError.message }); // Renvoyer l'erreur
             } else {
                 var requestOptions = {
                     method: 'GET',
                     redirect: 'follow'
                 };
-                fetch(`${resultat.server}/api/collections/Documentation/records?filter=etat_name='${request.etat_name}'`, requestOptions)
+                fetch(`http://mathieu-rio.fr:8090/api/collections/Documentation/records?filter=etat_name='${request.etat_name}'`, requestOptions)
                 .then(response => response.text())
-                .then(result => sendResponse({result: result}))
-                .catch(error => console.log('error', error));
+                .then(result => {
+                    sendResponse({ result: result }); // Envoyer la réponse
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la requête fetch :', error);
+                    sendResponse({ error: error.message }); // Renvoyer l'erreur
+                });
             }
         });
 
         return true; // Indique que la réponse est asynchrone
     }
 });
+
 
 
 

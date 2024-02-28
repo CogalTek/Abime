@@ -63,7 +63,7 @@ function createPopupMouse(content, event) {
         if (document.body.contains(popup)) {
             document.body.removeChild(popup);
         }
-    }, 3000);
+    }, 10000);
 }
 
 function popupInfo() {
@@ -103,18 +103,20 @@ function popupInfo() {
 
 function handleMouseOver(event) {
     if (event.target.id.includes('ListingURE_detailView_listColumn')) {
-        for (let i of ar) {
-            if (event.target.innerText === i.name) {
-                console.log(event.clientX, event.clientY);
-                createPopupMouse(i.desc, event);
-                break;
-            }
-        }
+        console.log("etat detecter: " + event.target.innerText)
 
 
         chrome.runtime.sendMessage({action: "downloadDoc", etat_name: event.target.innerText}, function(response) {
-            createPopupMouse(response, event);
+            console.log(response); // Affichez la réponse pour vérifier sa structure
+            var obj = JSON.parse(response.result);
+            if (obj && obj.totalItems) {
+                createPopupMouse(obj.items[0].description, event);
+            } else {
+                console.log(JSON.parse(response.result));
+                console.log("Réponse invalide ou aucun élément trouvé.");
+            }
         });
+            
     }
 }
 
