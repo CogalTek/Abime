@@ -1,6 +1,7 @@
 <!-- Affichage de tout les utilisateur enregistrer -->
 
 <template>
+    <createAccountWidget v-if="creating" @close="editCreating"/>
     <div class="card userListWidget shadow rounded m-3" style="width: 25%; height: 20rem;">
         <div class="card-header">
             Gestionnaire d'accès
@@ -9,7 +10,7 @@
             <userFicheComponent v-for="user in record" :name="user.username" :admin="user.admin" :edit="admin"/>
         </div>
         <div class="card-footer">
-            <button class="btn btn-outline-primary w-100">Crée une nouvelle clée</button>
+            <button @click="editCreating" class="btn btn-outline-primary w-100">Crée une nouvelle clée</button>
         </div>
     </div>
 </template>
@@ -19,12 +20,18 @@
 
 <script setup>
     import userFicheComponent from './userFicheComponent.vue';
+    import createAccountWidget from './createAccountWidget.vue';
     import { useNuxtApp } from '#app';
 
     const nuxtApp = useNuxtApp();
     const pb = ref({});
     const record = ref({});
     const admin = ref(false);
+    const creating = ref(false);
+
+    const editCreating = () => {
+        creating.value = !creating.value;
+    }
 
     // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync
     onMounted(async () => {
