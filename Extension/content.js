@@ -107,16 +107,13 @@ function handleMouseOver(event) {
 
 
         chrome.runtime.sendMessage({action: "downloadDoc", etat_name: event.target.innerText}, function(response) {
-            console.log(response); // Affichez la réponse pour vérifier sa structure
             var obj = JSON.parse(response.result);
             if (obj && obj.totalItems) {
                 createPopupMouse(obj.items[0].description, event);
             } else {
-                console.log(JSON.parse(response.result));
                 console.log("Réponse invalide ou aucun élément trouvé.");
             }
         });
-            
     }
 }
 

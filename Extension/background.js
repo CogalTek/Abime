@@ -13,8 +13,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // téléchargement de la doc
     if (request.action === "downloadDoc" && request.etat_name != "") {
-        console.log("Lancement du téléchargement de " + request.etat_name);
-        
         chrome.storage.sync.get("token", function(result) {
             if (chrome.runtime.lastError) {
                 // Gérer l'erreur
@@ -44,7 +42,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
                 });
             }
         });
-
         return true; // Indique que la réponse est asynchrone
     }
 });

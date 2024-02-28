@@ -1,15 +1,16 @@
 <!-- Affichage de tout les utilisateur enregistrer -->
 
 <template>
+    <createDocWidget v-if="creating" @close="editCreating" />
     <div class="card etatListWidget shadow rounded m-3" style="width: 69%; height: 33rem;">
         <div class="card-header">
             Gestionnaire de resource
         </div>
         <div class="card-body">
-            <userFicheComponent v-for="user in record" :name="user.etat_name"/>
+            <etatFicheComponent v-for="user in record" :name="user.etat_name"/>
         </div>
         <div class="card-footer">
-            <button class="btn btn-outline-primary">Ajouter une nouvelle documentation</button>
+            <button @click="editCreating" :disabled="!admin" class="btn btn-outline-primary">Ajouter une nouvelle documentation</button>
         </div>
     </div>
 </template>
@@ -21,12 +22,20 @@
 </style>
 
 <script setup>
-    import userFicheComponent from './userFicheComponent.vue';
+    import etatFicheComponent from './etatFicheComponent.vue';
+    import createDocWidget from './createDocWidget.vue';
     import { useNuxtApp } from '#app';
 
     const nuxtApp = useNuxtApp();
     const pb = ref({});
     const record = ref({});
+    const creating = ref(false);
+    const admin = ref(false);
+
+    const editCreating = () => {
+        creating.value = !creating.value;
+        console.log("new value " + creating.value)
+    }
 
     // Chargement de resource au chargement de la page, permet de ne pas avoir d'erreur de sync
     onMounted(async () => {
@@ -35,6 +44,7 @@
             if (!pb.value.authStore.isValid)
                 router.push('/');
             record.value = await pb.value.collection('Documentation').getFullList();
+            admin.value = pb.value.authStore.model.admin;
         } catch (error) {
             console.error("Erreur durant le chargement des données.", error);
         } finally {
