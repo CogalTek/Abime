@@ -7,7 +7,7 @@
             Gestionnaire de resource
         </div>
         <div class="card-body">
-            <etatFicheComponent v-for="user in record" :name="user.etat_name"/>
+            <etatFicheComponent v-for="user in record" :name="user.etat_name" :edit="admin"/>
         </div>
         <div class="card-footer">
             <button @click="editCreating" :disabled="!admin" class="btn btn-outline-primary">Ajouter une nouvelle documentation</button>
