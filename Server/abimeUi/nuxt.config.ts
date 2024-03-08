@@ -16,9 +16,8 @@ export default defineNuxtConfig({
         }
     },
     runtimeConfig: {
-        // Keys within public, will be also exposed to the client-side
         public: {
-            pocketbaseIp: ''
+            pocketbaseIp: process.env.NUXT_PUBLIC_POCKETBASE_IP
         }
     }
 })
