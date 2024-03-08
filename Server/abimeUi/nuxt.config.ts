@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            pocketbaseIp: process.env.POCKETBASE_URL
+            pocketbaseIp: "http://mathieu-rio.fr:8090"
         }
     }
 })

@@ -13,10 +13,10 @@ RUN unzip /tmp/pb.zip -d /pb/
 # uncomment to copy the local pb_migrations dir into the image
 COPY ./pb_migrations /pb/pb_migrations
 
-# uncomment to copy the local pb_data dir into the image (changed from pb_hooks for clarity)
+# uncomment to copy the local pb_hooks dir into the image
 COPY ./pb_data /pb/pb_data
 
-EXPOSE 8090
+EXPOSE 8080
 
-# start PocketBase on all interfaces to make it accessible from other containers
-CMD ["/pb/pocketbase", "serve", "--http=0.0.0.0:8090"]
+# start PocketBase
+CMD ["/pb/pocketbase", "serve", "--http=127.0.0.1:8080"]
