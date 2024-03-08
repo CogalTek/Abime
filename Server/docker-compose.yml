@@ -4,8 +4,6 @@ services:
         build: ./abimeUi
         ports:
             - "80:3000"
-        environment:
-            - NUXT_PUBLIC_POCKETBASE_IP
 
     pocketbase:
         image: ghcr.io/muchobien/pocketbase:latest
