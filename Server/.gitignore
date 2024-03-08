@@ -1,0 +1,5 @@
+pb_migrations/
+pb_public/
+data/
+.gitignore
+.env
