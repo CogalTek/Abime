@@ -1,27 +1,30 @@
 version: '3.7'
 services:
-    nuxt_app:
-        build: ./abimeUi
-        ports:
-            - "80:3000"
+  nuxt_app:
+    build: ./abimeUi
+    ports:
+      - "80:3000"
+    environment:
+      - POCKETBASE_URL=http://pocketbase:8090
+    depends_on:
+      - pocketbase
 
-    pocketbase:
-        image: ghcr.io/muchobien/pocketbase:latest
-        container_name: pocketbase
-        restart: unless-stopped
-        command:
-            - --encryptionEnv #optional
-            - ENCRYPTION #optional
-        environment:
-            ENCRYPTION: example #optional
-        ports:
-            - "8090:8090"
-        volumes:
-            - pocketbase-volume-abime:/pb_data
-        healthcheck: #optional (recommended) since v0.10.0
-            test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
-            interval: 5s
-            timeout: 5s
-            retries: 5
+  pocketbase:
+    image: ghcr.io/muchobien/pocketbase:latest
+    container_name: pocketbase
+    restart: unless-stopped
+    command:
+      - serve
+      - --http=0.0.0.0:8090 # Écoute sur toutes les interfaces sur le port 8090
+    ports:
+      - "8090:8090" # Mappage du port 8090 du conteneur au port 8090 de l'hôte
+    volumes:
+      - pocketbase-volume-abime:/pb_data
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:8090/api/health || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
 volumes:
-    pocketbase-volume-abime:
+  pocketbase-volume-abime:

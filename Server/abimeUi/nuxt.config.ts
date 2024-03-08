@@ -17,7 +17,7 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         public: {
-            pocketbaseIp: "http://localhost:8090"
+            pocketbaseIp: process.env.POCKETBASE_URL
         }
     }
 })
