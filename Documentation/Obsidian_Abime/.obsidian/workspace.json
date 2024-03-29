@@ -1,0 +1,166 @@
+{
+  "main": {
+    "id": "b6989e39ab73a8a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "34f4e1a66d314796",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0c6c1c5e1f901aea",
+            "type": "leaf",
+            "state": {
+              "type": "excalidraw",
+              "state": {
+                "file": "Excalidraw/Architecture.excalidraw.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "558a2777e881e545",
+    "type": "split",
+    "children": [
+      {
+        "id": "23cad2b4b2051d98",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "dd7a3834a798f39c",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "8fdd361440a72556",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "59c3d6c228a29444",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "right": {
+    "id": "f014b96f1ede76e2",
+    "type": "split",
+    "children": [
+      {
+        "id": "a1a81fac11441257",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f49c40d23b7f2db0",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Excalidraw/Architecture.excalidraw.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6791a4815b0645c7",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Excalidraw/Architecture.excalidraw.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "3380a38136367295",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "ed585044bfc00e15",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Excalidraw/Architecture.excalidraw.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Ouvrir le sélecteur rapide": false,
+      "graph:Ouvrir la vue graphique": false,
+      "canvas:Créer une nouvelle toile": false,
+      "daily-notes:Ouvrir la note quotidienne": false,
+      "templates:Insérer le modèle": false,
+      "command-palette:Ouvrir la palette de commandes": false,
+      "obsidian-excalidraw-plugin:Create new drawing": false
+    }
+  },
+  "active": "dd7a3834a798f39c",
+  "lastOpenFiles": [
+    "Excalidraw/Drawing 2024-03-05 10.11.48.excalidraw.md",
+    "Excalidraw/Architecture.excalidraw.md",
+    "Pasted Image 20240305092419_486.png",
+    "Pasted Image 20240305100619_338.png",
+    "Pasted Image 20240305100447_310.png",
+    "Pasted Image 20240305095627_324.png",
+    "Pasted Image 20240305095452_336.png",
+    "Pasted Image 20240305095029_350.png",
+    "Pasted Image 20240305094809_354.png",
+    "Pasted Image 20240305094427_466.png",
+    "Pasted Image 20240305094341_480.png",
+    "Pasted Image 20240305094237_469.png",
+    "Welcome.md",
+    "Excalidraw"
+  ]
+}

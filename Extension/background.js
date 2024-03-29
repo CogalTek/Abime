@@ -5,9 +5,24 @@ chrome.action.onClicked.addListener((tab) => {
     });
 });
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // ouverture de la popup de configuration
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.action === "openWindow") {
         chrome.windows.create({url: "popup.html", type: "popup", width: 400, height: 400});
+    } else if (request.action === "openWindowConfirmed") {
+        chrome.windows.create({url: "popupConfirmed.html", type: "popup", width: 400, height: 400});
+    } else if (request.action === "asToken") {
+        // Vous devez retourner true ici pour indiquer que la réponse sera envoyée de manière asynchrone
+        chrome.storage.sync.get("token", function(result) {
+            if (chrome.runtime.lastError) {
+                console.log("Erreur lors de la récupération des données :", chrome.runtime.lastError);
+                sendResponse({result: "false"});
+            } else {
+                // Vous devez vérifier ici si le token existe et répondre en conséquence
+                const hasToken = result.token ? "true" : "false";
+                sendResponse({result: hasToken});
+            }
+        });
+        return true; // Indique que sendResponse sera appelé de manière asynchrone
     }
 });
 
@@ -31,7 +46,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
                     method: 'GET',
                     redirect: 'follow'
                 };
-                fetch(`http://mathieu-rio.fr:8090/api/collections/Documentation/records?filter=etat_name='${request.etat_name}'`, requestOptions)
+                fetch(`${result}/api/collections/Documentation/records?filter=etat_name='${request.etat_name}'`, requestOptions)
                 .then(response => response.text())
                 .then(result => {
                     sendResponse({ result: result }); // Envoyer la réponse
@@ -46,26 +61,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
     }
 });
 
-
-
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // verification de la connexion
-    if (request.action === "tokenVerification") {
-        chrome.storage.sync.get("token", function(resultat) {
-            if (chrome.runtime.lastError) {
-                // Gérer l'erreur
-                console.log("Erreur lors de la récupération des données :", chrome.runtime.lastError);
-                chrome.windows.create({url: "popup.html", type: "popup", width: 400, height: 400}); // demande de connexion
-            } else {
-                // verifier au pret du serveur le token (to-do)
-                sendResponse({result: "Connected"});
-            }
-        });
-
-        if (request.action === "openWindow") {
-            chrome.windows.create({url: "popup.html", type: "popup", width: 400, height: 400});
-        }
-    }
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // deconnexion
+    if (request.action === "disconnect")
+        chrome.storage.sync.clear();
+    return true;
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { // connexion
@@ -83,10 +82,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) { /
         }).then(response => response.json())
         .then(data => {
             if (data.token) {
-                chrome.storage.sync.set({"token": data.token}, function() {
-                    console.log("Données sauvegardées dans chrome.storage.sync.");
-                });
-
+                chrome.storage.sync.set({"token": data.token});
                 chrome.storage.sync.set({"server": data.server});
 
                 chrome.storage.sync.get("token", function(resultat) {
